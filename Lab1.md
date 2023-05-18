@@ -25,7 +25,7 @@ CREATE TABLE s1.inventory_no_reservation (
   id NUMBER PRIMARY KEY,
   product_name VARCHAR2(50),
   quantity NUMBER,
-  price NUMBER
+  budget NUMBER
 );
 </copy>
 ````
@@ -43,7 +43,7 @@ column_definition::= column_name datatype reservable [CONSTRAINT constraint_name
 </copy>
 ````
 
-* Create the table with the reservable keyword to enable lock free reservations to a specific column. In this case we bind it to the Price variable. 
+* Create the table with the reservable keyword to enable lock free reservations to a specific column. In this case we bind it to the `budget` variable. 
 
 ````
 <copy>
@@ -51,7 +51,7 @@ CREATE TABLE s1.inventory_reservations (
   id NUMBER PRIMARY KEY,
   product_name VARCHAR2(50),
   quantity NUMBER,
-  price NUMBER reservable CONSTRAINT minimum_balance CHECK (price >= 500)
+  budget NUMBER reservable CONSTRAINT minimum_balance CHECK (budget >= 400)
 
 );
 </copy>
@@ -63,11 +63,11 @@ CREATE TABLE s1.inventory_reservations (
 ````
 <copy>
 -- Inserting rows into inventory_no_reservation table
-INSERT INTO s1.inventory_no_reservation (id, product_name, quantity, price)
-VALUES (1, 'Product A', 10, 9.99);
+INSERT INTO s1.inventory_no_reservation (id, product_name, quantity, budget)
+VALUES (1, 'Product A', 10, 200);
 
-INSERT INTO s1.inventory_no_reservation (id, product_name, quantity, price)
-VALUES (2, 'Product B', 5, 19.99);
+INSERT INTO s1.inventory_no_reservation (id, product_name, quantity, budget)
+VALUES (2, 'Product B', 5, 200);
 </copy>
 ````
 
@@ -76,11 +76,11 @@ VALUES (2, 'Product B', 5, 19.99);
 ````
 <copy>
 -- Inserting rows into inventory_reservations table
-INSERT INTO s1.inventory_reservations (id, product_name, quantity, price)
-VALUES (1, 'Product C', 8, 14.99);
+INSERT INTO s1.inventory_reservations (id, product_name, quantity, budget)
+VALUES (1, 'Product C', 8, 200);
 
-INSERT INTO s1.inventory_reservations (id, product_name, quantity, price)
-VALUES (2, 'Product D', 3, 24.99);
+INSERT INTO s1.inventory_reservations (id, product_name, quantity, budget)
+VALUES (2, 'Product D', 3, 200);
 </copy>
 ````
 
@@ -181,7 +181,7 @@ CREATE TABLE s1.inventory_third_table (
   id NUMBER,
   product_name VARCHAR2(50),
   quantity NUMBER,
-  price NUMBER
+  budget NUMBER
 );
 </copy>
 ````
@@ -189,10 +189,10 @@ CREATE TABLE s1.inventory_third_table (
 * Insert Data into the Third Table 
 ````
 <copy>
-INSERT INTO s1.inventory_third_table (id, product_name, quantity, price)
+INSERT INTO s1.inventory_third_table (id, product_name, quantity, budget)
 VALUES (3, 'Product E', 7, 29.99);
 
-INSERT INTO s1.inventory_third_table (id, product_name, quantity, price)
+INSERT INTO s1.inventory_third_table (id, product_name, quantity, budget)
 VALUES (4, 'Product F', 12, 39.99);
 </copy>
 ````
@@ -248,4 +248,117 @@ select * from s1.inventory_third_table;
 
 This is awesome! We can tell that u2 is entitled to access all tables within the schema.
 
-Now lets move on to the next lab and test how we can test the new feature Lock-Free Reservation Feature by updating the numeric column, `price` from the second table `inventory_reservations` where we created a table with a reserved column earlier. We will demonstrate this by way of contrast. So we will first take user 2 and update columns on the non lock-free table we created, `no_inventory_reservations`. Then we will test the update columns with user 1 by updating columns in the `inventory_reservations` table. You will begin to see how the user that tries to update the first table will result in a hanging commit due to the one in one out nature of normal tables, they lock until a commit has been made by a previous user. This is what causes delay in the user from making multiple commits to the table. We will view here how Lock-Free Reservations solve that issue. 
+Now lets move on to the next lab and test how we can test the new feature Lock-Free Reservation Feature by updating the numeric column, `budget` from the second table `inventory_reservations` where we created a table with a reserved column earlier. We will demonstrate this by way of contrast. So we will first take user 2 and update columns on the non lock-free table we created, `no_inventory_reservations`. Then we will test the update columns with user 1 by updating columns in the `inventory_reservations` table. You will begin to see how the user that tries to update the first table will result in a hanging commit due to the one in one out nature of normal tables, they lock until a commit has been made by a previous user. This is what causes delay in the user from making multiple commits to the table. We will view here how Lock-Free Reservations solve that issue. 
+
+
+# Lab 3: Lock-Free Reservations
+
+## Task 1: Normal Update 
+
+1. Open 3 windows u2, u2, u2
+
+2. In Window 1 update table1(inventory_no_reservation) decrease a record by 100 but don’t commit
+
+````
+<copy>
+UPDATE s1.inventory_no_reservation
+SET budget = budget - 100;
+</copy>
+````
+
+
+3. Window 2 update t1 and decrease the same record by 100 and show that the session just hangs
+
+````
+<copy>
+UPDATE s1.inventory_no_reservation
+SET budget = budget - 100;
+</copy>
+````
+
+4. Window 3 update t1 and decrease the same record by 200 going below the “threshold” and the session just hangs
+
+````
+<copy>
+UPDATE s1.inventory_no_reservation
+SET budget = budget - 200;
+</copy>
+````
+
+5. In Window 1 please commit the statement below which releases one of the other two windows
+
+````
+<copy>
+UPDATE s1.inventory_no_reservation
+SET budget = budget - 100;
+COMMIT;
+</copy>
+````
+
+6. The window that freed up commit
+
+--insert screen shot 
+
+7. The window that freed up commit giving the error
+
+--insert screenshot
+
+An inssufficient budget amount causes an abort. 
+
+## Task 2: Lock-Free Reservations
+
+* using the same 3 windows
+
+1. Window 1 update t1(inventory_reservation) decrease a record by 100 but don’t commit
+
+````
+<copy>
+UPDATE s1.inventory_reservation
+SET budget = budget - 100;
+</copy>
+````
+
+2. Window 2 update t2 and decrease the same record by 100 and show that the session doesn’t hang.
+
+````
+<copy>
+UPDATE s1.inventory_reservation
+SET budget = budget - 100;
+</copy>
+````
+
+3. Window 3 update t2 and decrease the same record by 200 going below the “threshold” and the session errors
+
+````
+<copy>
+UPDATE s1.inventory_reservation
+SET budget = budget - 200;
+</copy>
+````
+
+4. Commit window 1 
+
+````
+<copy>
+UPDATE s1.inventory_reservation
+SET budget = budget - 100;
+COMMIT;
+</copy>
+````
+
+5. Roll back window 2
+````
+<copy>
+ROLLBACK;
+</copy>
+````
+
+
+5. Go to Window 3 and run the transaction again and it should succeed because we gave back the 100 to the reserved column, budget
+````
+<copy>
+UPDATE s1.inventory_reservation
+SET budget = budget - 200;
+COMMIT;
+</copy>
+````
