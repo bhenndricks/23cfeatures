@@ -1,0 +1,11 @@
+{
+  "workshoptitle": "Title Placeholder",
+  "help": ["blake.hendricks@oracle.com"],
+  "tutorials": [
+    {
+      "title": "Placeholder",
+      "description": "Guide",
+      "filename": "../../draftlab/draftlab.md"
+    }
+  ]
+}
