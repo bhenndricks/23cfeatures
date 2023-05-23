@@ -106,7 +106,8 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON SCHEMA s1 TO u2;
 
 ## Task 2: Login to Users and Test the new feature Schema Priveledges versus the Select Grants Feature
 
-At this point we know we gave user 1 the limited ability to access table 1 from the schema. Whereas u2 has schema level access that we defined earlier. The main difference is that in the past if you have a schema with many new tables being created and you want to grant u1 account SELECT permission on these tables you would usually have to manually regrant access to that user to view new tables. Fast forward to now, 23c allows DBA to grant perma access to all tables under the schema. You will see this in action during this lab.
+In the current scenario, we have assigned user 1 with limited access to table 1 within the schema, while user 2 has schema-level access as defined earlier. The key distinction lies in the past practice where, when dealing with a schema containing numerous newly created tables, granting SELECT permission to user 1 on these tables necessitated manual access regrants each time new tables were added. However, with the advent of Oracle 23c, database administrators (DBAs) now have the ability to grant permanent access to all tables within a schema. During this lab, you will witness firsthand how this functionality operates, providing a seamless experience for managing access to tables within the schema.
+
 
 1. Login to user 1
 
@@ -171,7 +172,8 @@ select * from s1.inventory_reservations;
 </copy>
 ````
 
-This is great u2 can view the data from the new table, and this will be applied automatically to newly created tables in the future, which we will explore in the next lab after this. I will create a third table based on s1 inventory table and u2 will be able to view the data whereas u1 can not because it does not have schema priveledges enabled in its data definition:
+
+In this lab, we have enabled schema privileges for user u2, allowing them to view data from the new table. This privilege will also be automatically applied to any future tables created. In the upcoming lab, we will further explore this concept. As part of the current lab, I will create a third table based on the s1 inventory table. While u2 will be able to view the data from this new table, u1 won't have the necessary schema privileges enabled in its data definition, limiting their access.
 
 1. Create the third table:
 
@@ -248,7 +250,7 @@ select * from s1.inventory_third_table;
 
 This is awesome! We can tell that u2 is entitled to access all tables within the schema.
 
-Now lets move on to the next lab and test how we can test the new feature Lock-Free Reservation Feature by updating the numeric column, `budget` from the second table `inventory_reservations` where we created a table with a reserved column earlier. We will demonstrate this by way of contrast. So we will first take user 2 and update columns on the non lock-free table we created, `no_inventory_reservations`. Then we will test the update columns with user 1 by updating columns in the `inventory_reservations` table. You will begin to see how the user that tries to update the first table will result in a hanging commit due to the one in one out nature of normal tables, they lock until a commit has been made by a previous user. This is what causes delay in the user from making multiple commits to the table. We will view here how Lock-Free Reservations solve that issue. 
+Now, let's proceed to the next lab and explore the functionality of the Lock-Free Reservation feature. We will accomplish this by updating the numeric column, budget, in the `inventory_reservations` table, which we previously created with a reserved column. This demonstration will provide a clear contrast between different scenarios. First, we will simulate user 2 updating columns in the non lock-free table, `no_inventory_reservations`. Next, we will test the update columns using user 1 in the `inventory_reservations` table. Through this exercise, you will observe how attempting to update the first table leads to a hanging commit due to the conventional one in, one out nature of regular tables. These tables remain locked until a commit is made by a preceding user, causing delays when multiple commits are made to the table. We will witness how Lock-Free Reservations effectively address this issue, providing a solution for improved performance and user experience.
 
 
 # Lab 3: Lock-Free Reservations
