@@ -8,7 +8,7 @@
         "filename": "./../../intro/intro.md"
       },
       { 
-        //insert filename or link to md file for get started 
+        
         "title": "Get Started",
         "description": "filler",
         "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/cloud-login/cloud-login-livelabs2.md"

@@ -1,16 +1,12 @@
 # Lab 1: Setup - User Creation and Table Initialization
 
-Abstract: In this lab, we will focus on setting up the necessary components for our Oracle database environment. We will create two users, User 1 and User 2, and initialize two tables under Schema 1.
-
-Task 1 involves creating the users. By executing the provided SQL statements, we will create User 1 and User 2, each with their respective passwords. These users will be used for various tasks in the upcoming labs.
-
-Moving on to Task 2, we will create two tables under Schema 1. The first table, inventory_no_reservations, will serve as a normal table without any special features. The second table, inventory_reservations, will be created with lock-free reservations. This feature enables efficient management of reservations for specific columns, and we will bind it to the 'budget' column in our case.
-
-Task 3 focuses on inserting a few rows into each of the tables we created. We will insert data into the inventory_no_reservations table and the inventory_reservations table. This step will provide us with initial data to work with in the subsequent labs.
+In this lab, we will focus on setting up the necessary components for our Oracle database environment. We will create two users, User 1 and User 2, and initialize two tables under Schema 1.
 
 By following the instructions provided, you will complete the setup process and have the necessary users and tables ready for further exploration in the Oracle live lab. Let's dive in and get started with Lab 1!
 
 ## Task 1: Create users 
+
+Task 1 involves creating the users. By executing the provided SQL statements, we will create User 1 and User 2, each with their respective passwords. These users will be used for various tasks in the upcoming labs.
 
 1. Create two users
 
@@ -25,6 +21,8 @@ CREATE USER u2 IDENTIFIED BY password2;
 ````
 
 ## Task 2: Create two tables under schema 1 
+
+Moving on to Task 2, we will create two tables under Schema 1. The first table, inventory_no_reservations, will serve as a normal table without any special features. The second table, inventory_reservations, will be created with lock-free reservations. This feature enables efficient management of reservations for specific columns, and we will bind it to the 'budget' column in our case.
 
 1. Create the first table. Table 1 would be inventory_no_reservations (normal table)
 
@@ -67,6 +65,8 @@ CREATE TABLE s1.inventory_reservations (
 </copy>
 ````
 ## Task 3: Insert a few rows into each. 
+
+Task 3 focuses on inserting a few rows into each of the tables we created. We will insert data into the inventory_no_reservations table and the inventory_reservations table. This step will provide us with initial data to work with in the subsequent labs.
 
 1. Insert data into the first table:
 
