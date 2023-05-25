@@ -1,4 +1,5 @@
-
+Introduction:
+Welcome to the Oracle Live Labs: Database Management Series! This comprehensive series of labs will provide you with hands-on experience and practical knowledge in setting up and managing a robust database environment in Oracle. Throughout the labs, you will learn about various essential concepts, including user creation, table setup, schema-level privileges, and the innovative lock-free reservations feature.
 
 Lab Description:
 Lab 1 consists of three tasks. In Task 1, you will create two users using SQL commands. Task 2 involves creating two tables under a schema. The first table is a normal table, while the second table utilizes lock-free reservations for a specific column. Finally, in Task 3, you will insert rows of data into each table.
