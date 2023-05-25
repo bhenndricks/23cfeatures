@@ -16,12 +16,12 @@ CREATE USER u2 IDENTIFIED BY password2;
 
 ## Task 2: Create two tables under schema 1 
 
-1. Create the first table. Table 1 would be inventory_no_reservation (normal table)
+1. Create the first table. Table 1 would be inventory_no_reservations (normal table)
 
 
 ````
 <copy>
-CREATE TABLE s1.inventory_no_reservation (
+CREATE TABLE s1.inventory_no_reservations (
   id NUMBER PRIMARY KEY,
   product_name VARCHAR2(50),
   quantity NUMBER,
@@ -62,12 +62,18 @@ CREATE TABLE s1.inventory_reservations (
 
 ````
 <copy>
--- Inserting rows into inventory_no_reservation table
-INSERT INTO s1.inventory_no_reservation (id, product_name, quantity, budget)
-VALUES (1, 'Product A', 10, 200);
+-- Inserting rows into inventory_no_reservations table
+INSERT INTO s1.inventory_no_reservations (id, product_name, quantity, budget)
+VALUES (1, 'Product A', 10, 700);
+commit;
+</copy>
+````
 
-INSERT INTO s1.inventory_no_reservation (id, product_name, quantity, budget)
+````
+<copy>
+INSERT INTO s1.inventory_no_reservations (id, product_name, quantity, budget)
 VALUES (2, 'Product B', 5, 200);
+commit;
 </copy>
 ````
 
@@ -77,8 +83,12 @@ VALUES (2, 'Product B', 5, 200);
 <copy>
 -- Inserting rows into inventory_reservations table
 INSERT INTO s1.inventory_reservations (id, product_name, quantity, budget)
-VALUES (1, 'Product C', 8, 200);
+VALUES (1, 'Product C', 8, 700);
+</copy>
+````
 
+````
+<copy>
 INSERT INTO s1.inventory_reservations (id, product_name, quantity, budget)
 VALUES (2, 'Product D', 3, 200);
 </copy>
@@ -88,11 +98,11 @@ VALUES (2, 'Product D', 3, 200);
 
 ## Task 1: Grant Priveledges to users
 
-1. Grant select/insert/update/delete  priveldges on the inventory_no_reservation table to u1
+1. Grant select/insert/update/delete  priveldges on the inventory_no_reservations table to u1
 
 ````
 <copy>
-GRANT SELECT, INSERT, UPDATE, DELETE ON s1.inventory_no_reservation TO u1;
+GRANT SELECT, INSERT, UPDATE, DELETE ON s1.inventory_no_reservations TO u1;
 </copy>
 ````
  
@@ -128,7 +138,7 @@ show user
 
 ````
 <copy>
-select * from s1.inventory_no_reservation;
+select * from s1.inventory_no_reservations;
 </copy>
 ````
 
@@ -136,7 +146,7 @@ select * from s1.inventory_no_reservation;
 
 ````
 <copy>
-select * from s1.inventory_no_reservation;
+select * from s1.inventory_no_reservations;
 </copy>
 ````
 
@@ -161,7 +171,7 @@ show user
 
 ````
 <copy>
-select * from s1.inventory_no_reservation;
+select * from s1.inventory_no_reservations;
 </copy>
 ````
 * Query the second table from s1 schema and be mindful of what happens.
@@ -259,31 +269,33 @@ Now, let's proceed to the next lab and explore the functionality of the Lock-Fre
 
 1. Open 3 windows u2, u2, u2
 
-2. In Window 1 update table1(inventory_no_reservation) decrease a record by 100 but don’t commit
+2. In Window 1 update table1(inventory_no_reservations) decrease a record by 100 but don’t commit
 
 ````
 <copy>
-UPDATE s1.inventory_no_reservation
-SET budget = budget - 100;
+UPDATE s1.inventory_no_reservations
+SET budget = budget - 100 where ID = 1;
 </copy>
 ````
 
 
-3. Window 2 update t1 and decrease the same record by 100 and show that the session just hangs
+3. Window 2 update t1 and decrease the same record by 100 and it shows that the session just hangs
 
 ````
 <copy>
-UPDATE s1.inventory_no_reservation
-SET budget = budget - 100;
+UPDATE s1.inventory_no_reservations
+SET budget = budget - 100 where ID = 1
+commit;
 </copy>
 ````
 
-4. Window 3 update t1 and decrease the same record by 200 going below the “threshold” and the session just hangs
+4. Window 3 update t1 and decrease the same record by 200 going below the “threshold”. If the session hangs, it indicates an issue.
 
 ````
 <copy>
-UPDATE s1.inventory_no_reservation
-SET budget = budget - 200;
+UPDATE s1.inventory_no_reservations
+SET budget = budget - 200 WHERE ID = 1
+commit;
 </copy>
 ````
 
@@ -291,32 +303,28 @@ SET budget = budget - 200;
 
 ````
 <copy>
-UPDATE s1.inventory_no_reservation
-SET budget = budget - 100;
+UPDATE s1.inventory_no_reservations
+SET budget = budget - 100 where ID = 1
 COMMIT;
 </copy>
 ````
 
-6. The window that freed up commit
+6. Once a window is freed up, proceed to the next step without executing any additional instructions.
 
---insert screen shot 
+7. If the freed-up window encounters an error when committing, take note of the error message.
 
-7. The window that freed up commit giving the error
-
---insert screenshot
-
-An inssufficient budget amount causes an abort. 
+Note: An insufficient budget amount causes an abort.
 
 ## Task 2: Lock-Free Reservations
 
 * using the same 3 windows
 
-1. Window 1 update t1(inventory_reservation) decrease a record by 100 but don’t commit
+1. Window 1 update t1(inventory_reservations) decrease a record by 100 but don’t commit
 
 ````
 <copy>
-UPDATE s1.inventory_reservation
-SET budget = budget - 100;
+UPDATE s1.inventory_reservations
+SET budget = budget - 100 where ID = 1;
 </copy>
 ````
 
@@ -324,8 +332,9 @@ SET budget = budget - 100;
 
 ````
 <copy>
-UPDATE s1.inventory_reservation
-SET budget = budget - 100;
+UPDATE s1.inventory_reservations
+SET budget = budget - 100 where ID = 1
+commit;
 </copy>
 ````
 
@@ -333,17 +342,18 @@ SET budget = budget - 100;
 
 ````
 <copy>
-UPDATE s1.inventory_reservation
-SET budget = budget - 200;
+UPDATE s1.inventory_reservations
+SET budget = budget - 200 where ID = 1
+commit;
 </copy>
 ````
 
-4. Commit window 1 
+4. Commit window 1
 
 ````
 <copy>
-UPDATE s1.inventory_reservation
-SET budget = budget - 100;
+UPDATE s1.inventory_reservations
+SET budget = budget - 100 where ID = 1
 COMMIT;
 </copy>
 ````
@@ -359,8 +369,8 @@ ROLLBACK;
 5. Go to Window 3 and run the transaction again and it should succeed because we gave back the 100 to the reserved column, budget
 ````
 <copy>
-UPDATE s1.inventory_reservation
-SET budget = budget - 200;
+UPDATE s1.inventory_reservations
+SET budget = budget - 200 where ID = 1
 COMMIT;
 </copy>
 ````
