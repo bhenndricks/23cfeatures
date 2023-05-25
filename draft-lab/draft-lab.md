@@ -279,7 +279,7 @@ SET budget = budget - 100 where ID = 1;
 ````
 
 
-3. Window 2 update t1 and decrease the same record by 100 and it shows that the session just hangs
+3. Window 2 update t1 and decrease the same record by 100 and it shows that the session hangs. Due to the first update not being commited.
 
 ````
 <copy>
@@ -289,7 +289,7 @@ commit;
 </copy>
 ````
 
-4. Window 3 update t1 and decrease the same record by 200 going below the “threshold”. If the session hangs, it indicates an issue.
+4. Window 3 update t1 and decrease the same record by 200 going below the “threshold”. The session should hang again.
 
 ````
 <copy>
@@ -374,3 +374,8 @@ SET budget = budget - 200 where ID = 1
 COMMIT;
 </copy>
 ````
+
+## **Acknowledgements**
+* **Author(s)** - Blake Hendricks
+* **Contributor(s)** - Vasudha Krishnaswamy 
+* **Last Updated By/Date** - 5/25/2023
