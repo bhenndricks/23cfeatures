@@ -1,30 +1,31 @@
 {
-  "workshoptitle": "Input Title", //input title and vasuhda email
-  "help": "blake.hendricks@oracle.com", "vasuhda"
+  "workshoptitle": "Exploring the Power of Oracle 23c Database: Schema Privileges and Lock-Free Reservations", 
+  "help": ["blake.hendricks@oracle.com", "vasudha.krishnaswamy@oracle.com"],
   "tutorials": [
-      { //change description
+      { 
         "title": "Introduction",
-        "description": "Learn how to install and upgrade Oracle Autonomous Health Framework (AHF) on the fly without manually downloading the setup file, ahf_setup.",
+        "description": "Introduction to Schema Priveleges and Lock-Free Reservations",
         "filename": "./../../intro/intro.md"
       },
-      { //input the link to zip file and change description.. 
+      { 
+        //insert filename or link to md file for get started 
         "title": "Get Started",
-        "description": "Prerequisites for LiveLabs (Oracle-owned tenancies). The title of the lab and the Contents Menu title (the title above) match for Prerequisite lab. This lab is always first.",
+        "description": "filler",
         "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/cloud-login/cloud-login-livelabs2.md"
       },
-      { //change all lab titles 
-          "title": "Lab 1: Install Oracle Autonomous Health Framework (AHF)",
-          "description": "Learn how to install AHF either as root or as a non-root user. You will also learn how to run AHF on SELinux-enabled systems.",
+      { 
+          "title": "Lab 1: Lab Setup - User Creation and Table Initialization",
+          "description": "This lab setup guide covers the creation of users, creation of tables, and insertion of initial data for a database environment. Follow these steps to set up the required users and tables before starting the lab exercises.",
           "filename": "./../../setup/setup.md"
       },
       {
-          "title": "Lab 2: Upgrade Oracle Autonomous Health Framework (AHF)",
-          "description": "Learn how to upgrade AHF on the fly without manually downloading ahf_setup.",
+          "title": "Lab 2: Schema Privilege Management",
+          "description": "Learn how to grant specific privileges to users for accessing tables and examine the differences in accessing tables with and without schema privileges.",
           "filename": "./../../schema-priv/schema-priv.md"
       },
       {
-          "title": "Lab 3: Apply and rollback AHF updates",
-          "description": "Learn how to apply metadata and framework updates to AHF, roll back to the previous timestamp, and clean up backup files.",
+          "title": "Lab 3: Lock-Free Reservations",
+          "description": "This lab explores the concept of lock-free reservations and their impact on database transactions.",
           "filename": "./../../lockfree/lockfree.md"
       },
       {
