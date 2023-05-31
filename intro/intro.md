@@ -29,7 +29,7 @@ So, whether you're an Oracle enthusiast, a database administrator, or simply eag
 
 * Flexibility and Scalability: Schema level privileges provide flexibility when managing user roles and permissions. As your database grows and evolves, you can easily modify privileges at the schema level, accommodating new requirements and ensuring the right level of access for different user groups.
 
-Key Benefits of Lock Free Column Reservations:
+### Key Benefits of Lock Free Column Reservations:
 
 * Enhanced Concurrency: Lock Free Column Reservations allow multiple users to modify specific columns concurrently without causing conflicts or locking contention. This approach improves concurrency and scalability in highly concurrent systems, reducing wait times and enhancing system performance.
 
