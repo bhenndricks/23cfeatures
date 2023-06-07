@@ -1,5 +1,5 @@
 {
-  "workshoptitle": "Exploring the Power of Oracle 23c Database: Schema Privileges and Lock-Free Reservations", 
+  "workshoptitle": "Explore the Power of Oracle 23c Database: Schema Privileges and Lock-Free Reservations", 
   "help": ["blake.hendricks@oracle.com", "vasudha.krishnaswamy@oracle.com"],
   "tutorials": [
       { 
@@ -14,7 +14,7 @@
         "filename": "https://oracle-livelabs.github.io/common/labs/verify-compute/verify-compute-ssh-and-novnc.md"
       },
       { 
-          "title": "Lab 1: Lab Setup - User Creation and Table Initialization",
+          "title": "Lab 1: User Creation and Table Initialization",
           "description": "This lab setup guide covers the creation of users, creation of tables, and insertion of initial data for a database environment. Follow these steps to set up the required users and tables before starting the lab exercises.",
           "filename": "./../../setup/setup.md"
       },
@@ -32,11 +32,6 @@
           "title": "Need Help?",
           "description": "Solutions to Common Problems and Directions for Receiving Live Help",
           "filename":"https://oracle-livelabs.github.io/common/labs/need-help/need-help-livelabs.md"
-      },
-      {
-        "title": "Need Help?",
-        "description": "Solutions to Common Problems and Directions for Receiving Live Help",
-        "filename": "https://oracle-livelabs.github.io/common/labs/need-help/need-help-freetier.md"
-    }
+      }
   ]
 }
