@@ -58,7 +58,7 @@ In order to do this workshop you need
 
 ### **Agenda**
 
-Lab 1: Setup
+1. Lab 1: Setup
 
 * Task 1: Create Users
     In this task, you will create two users using SQL commands.
@@ -69,7 +69,7 @@ Lab 1: Setup
 * Task 3: Insert a Few Rows into Each
     In this task, you will insert data into the previously created tables. Rows of data will be inserted into both the normal table and the table with lock-free reservations.
 
-Lab 2: Grant Schema Privileges
+2. Lab 2: Grant Schema Privileges
 
 * Task 1: Grant Privileges to Users
     In this task, you will grant select, insert, update, and delete privileges on specific tables to the users created in Lab 1.
@@ -77,7 +77,7 @@ Lab 2: Grant Schema Privileges
 * Task 2: Login to Users and Test the New Feature Schema Privileges versus the Select Grants Feature
     In this task, you will log in as the created users and test their access to tables based on the privileges granted. You will observe the difference in user experiences between limited table access and schema-level access.
 
-Lab 3: Lock-Free Reservations
+3. Lab 3: Lock-Free Reservations
 
 * Task 1: Normal Update
     In this task, you will simulate a scenario where multiple users attempt to update a table without lock-free reservations. You will observe the session hanging and delays caused by locking and committing issues.
@@ -87,14 +87,13 @@ Lab 3: Lock-Free Reservations
 
 By completing these labs, you will gain practical experience in setting up a database environment, granting privileges, and utilizing the lock-free reservations feature in Oracle. Have a great learning experience!
 
-
-
 ### Learn More
+
 * [Lock-Free Reservations Documentation](https://docs.oracle.com/en/database/oracle/oracle-database/23/adfns/using-lock-free-reservation.html#GUID-60D87F8F-AD9B-40A6-BB3C-193FFF0E60BB)
 * [Schema Priveledges](https://geodatamaster.com/2023/04/07/oracle-database-23c-schema-level-privileges/)
 
-
 ### **Acknowledgements**
+
 * **Author(s)** - Blake Hendricks, Database Product Manager
 * **Contributor(s)** - Vasudha Krishnaswamy 
 * **Last Updated By/Date** - 5/25/2023
