@@ -67,13 +67,13 @@ commit;
 
 5. In Window 1 please commit the statement below which releases one of the other two windows
 
-````
-<copy>
-UPDATE s1.inventory_no_reservations
-SET budget = budget - 100 where ID = 1
-COMMIT;
-</copy>
-````
+    ````
+    <copy>
+    UPDATE s1.inventory_no_reservations
+    SET budget = budget - 100 where ID = 1
+    COMMIT;
+    </copy>
+    ````
 
 6. Once a window is freed up, proceed to the next step without executing any additional instructions.
 
@@ -85,63 +85,64 @@ Note: An insufficient budget amount causes an abort.
 
 Task 2 introduces the concept of lock-free reservations. Using the same three windows, we will now perform updates on the inventory_reservations table. In Window 1, we will decrease the budget of a record by 100 without committing. In Window 2, we will update the same record by 100, and unlike before, the session will not hang. In Window 3, we will attempt to decrease the record by 200, going below the "threshold," which will result in a session error. We will then commit the changes in Window 1 and rollback the changes in Window 2. Finally, we will run the transaction again in Window 3, which should succeed because we have restored the reserved amount in the budget column.
 
-* Using the same 3 windows
+Note: Using the same 3 windows
 
 1. Window 1 update t1(inventory_reservations) decrease a record by 100 but don’t commit
 
-````
-<copy>
-UPDATE s1.inventory_reservations
-SET budget = budget - 100 where ID = 1;
-</copy>
-````
+    ````
+    <copy>
+    UPDATE s1.inventory_reservations
+    SET budget = budget - 100 where ID = 1;
+    </copy>
+    ````
 
 2. Window 2 update t2 and decrease the same record by 100 and show that the session doesn’t hang.
 
-````
-<copy>
-UPDATE s1.inventory_reservations
-SET budget = budget - 100 where ID = 1
-commit;
-</copy>
-````
+    ````
+    <copy>
+    UPDATE s1.inventory_reservations
+    SET budget = budget - 100 where ID = 1
+    commit;
+    </copy>
+    ````
 
 3. Window 3 update t2 and decrease the same record by 200 going below the “threshold” and the session errors
 
-````
-<copy>
-UPDATE s1.inventory_reservations
-SET budget = budget - 200 where ID = 1
-commit;
-</copy>
-````
+    ````
+    <copy>
+    UPDATE s1.inventory_reservations
+    SET budget = budget - 200 where ID = 1
+    commit;
+    </copy>
+    ````
 
 4. Commit window 1
 
-````
-<copy>
-UPDATE s1.inventory_reservations
-SET budget = budget - 100 where ID = 1
-COMMIT;
-</copy>
-````
+    ````
+    <copy>
+    UPDATE s1.inventory_reservations
+    SET budget = budget - 100 where ID = 1
+    COMMIT;
+    </copy>
+    ````
 
 5. Roll back window 2
-````
-<copy>
-ROLLBACK;
-</copy>
-````
 
+    ````
+    <copy>
+    ROLLBACK;
+    </copy>
+    ````
 
 6. Go to Window 3 and run the transaction again and it should succeed because we gave back the 100 to the reserved column, budget
-````
-<copy>
-UPDATE s1.inventory_reservations
-SET budget = budget - 200 where ID = 1
-COMMIT;
-</copy>
-````
+
+    ````
+    <copy>
+    UPDATE s1.inventory_reservations
+    SET budget = budget - 200 where ID = 1
+    COMMIT;
+    </copy>
+    ````
 
 ## **Acknowledgements**
 * **Author(s)** - Blake Hendricks, Autonomous Database Product Manager
