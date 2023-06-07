@@ -63,7 +63,9 @@ In order to do this workshop you need
 
 You may **proceed to the next lab.**
 
-## Acknowledgements
+## Task
+
+## Task: Acknowledgements
 
 * **Author(s)** - Blake Hendricks, Database Product Manager
 * **Contributor(s)** - Vasudha Krishnaswamy
