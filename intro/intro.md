@@ -57,7 +57,7 @@ In order to do this workshop you need
 
 * An Oracle 23c Free Developer Release Database or one running in a LiveLabs environment
 
-### **Agenda**
+## **Agenda**
 
 1. Lab 1: Setup
 
@@ -87,6 +87,8 @@ In order to do this workshop you need
     In this task, you will repeat the scenario from Task 1, but this time utilizing the lock-free reservations feature. You will observe how lock-free reservations prevent session hanging and provide a more efficient user experience.
 
 By completing these labs, you will gain practical experience in setting up a database environment, granting privileges, and utilizing the lock-free reservations feature in Oracle. Have a great learning experience!
+
+You may **proceed to the next lab.**
 
 ## **Acknowledgements**
 
