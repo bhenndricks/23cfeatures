@@ -65,7 +65,7 @@ You may **proceed to the next lab.**
 
 ## Task
 
-## Task: Acknowledgements
+## Acknowledgements
 
 * **Author(s)** - Blake Hendricks, Database Product Manager
 * **Contributor(s)** - Vasudha Krishnaswamy
