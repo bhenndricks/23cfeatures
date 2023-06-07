@@ -67,13 +67,13 @@ commit;
 
 5. In Window 1 please commit the statement below which releases one of the other two windows
 
-    ````
-    <copy>
-    UPDATE s1.inventory_no_reservations
-    SET budget = budget - 100 where ID = 1
-    COMMIT;
-    </copy>
-    ````
+````
+<copy>
+UPDATE s1.inventory_no_reservations
+SET budget = budget - 100 where ID = 1
+COMMIT;
+</copy>
+````
 
 6. Once a window is freed up, proceed to the next step without executing any additional instructions.
 
@@ -89,60 +89,59 @@ Note: Using the same 3 windows
 
 1. Window 1 update t1(inventory_reservations) decrease a record by 100 but don’t commit
 
-    ````
-    <copy>
-    UPDATE s1.inventory_reservations
-    SET budget = budget - 100 where ID = 1;
-    </copy>
-    ````
+````
+<copy>
+UPDATE s1.inventory_reservations
+SET budget = budget - 100 where ID = 1;
+</copy>
+````
 
 2. Window 2 update t2 and decrease the same record by 100 and show that the session doesn’t hang.
 
-    ````
-    <copy>
-    UPDATE s1.inventory_reservations
-    SET budget = budget - 100 where ID = 1
-    commit;
-    </copy>
-    ````
+````
+<copy>
+UPDATE s1.inventory_reservations
+SET budget = budget - 100 where ID = 1
+commit;
+</copy>
+````
 
 3. Window 3 update t2 and decrease the same record by 200 going below the “threshold” and the session errors
 
-    ````
-    <copy>
-    UPDATE s1.inventory_reservations
-    SET budget = budget - 200 where ID = 1
-    commit;
-    </copy>
-    ````
+````
+<copy>
+UPDATE s1.inventory_reservations
+SET budget = budget - 200 where ID = 1
+commit;
+</copy>
+````
 
 4. Commit window 1
 
-    ````
-    <copy>
-    UPDATE s1.inventory_reservations
-    SET budget = budget - 100 where ID = 1
-    COMMIT;
-    </copy>
-    ````
+````
+<copy>
+UPDATE s1.inventory_reservations
+SET budget = budget - 100 where ID = 1
+COMMIT;
+</copy>
+````
 
 5. Roll back window 2
+````
+<copy>
+ROLLBACK;
+</copy>
+````
 
-    ````
-    <copy>
-    ROLLBACK;
-    </copy>
-    ````
 
 6. Go to Window 3 and run the transaction again and it should succeed because we gave back the 100 to the reserved column, budget
-
-    ````
-    <copy>
-    UPDATE s1.inventory_reservations
-    SET budget = budget - 200 where ID = 1
-    COMMIT;
-    </copy>
-    ````
+````
+<copy>
+UPDATE s1.inventory_reservations
+SET budget = budget - 200 where ID = 1
+COMMIT;
+</copy>
+````
 
 ## **Acknowledgements**
 * **Author(s)** - Blake Hendricks, Autonomous Database Product Manager
