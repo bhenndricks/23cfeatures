@@ -63,7 +63,6 @@ In order to do this workshop you need
 
 You may **proceed to the next lab.**
 
-## Task
 
 ## Acknowledgements
 
