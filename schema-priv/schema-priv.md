@@ -6,7 +6,28 @@ In this lab, we will explore the management of schema privileges in Oracle. By g
 
 Join us as we dive into Schema Privilege Management, log in as different users, query tables, and observe the impact of schema privileges on access. We will create a third table to demonstrate the limitations faced by a user without schema privileges. Through this lab, you will gain a deeper understanding of schema privilege management and its implications in Oracle databases.
 
-## Task 1: Grant Priveledges to users
+Estimated Time: 10 minutes
+
+### Prerequisites
+* Basic understanding of Oracle database management.
+* Familiarity with SQL and database concepts such as tables, queries, and user privileges.
+* Access to an Oracle database environment with appropriate permissions to create and modify users, tables, and privileges.
+* An existing schema or the ability to create a new schema for testing purposes.
+Note: Ensure that you have the necessary access and privileges to perform the tasks mentioned in the lab.
+
+### Objectives 
+* Understand schema privilege management in Oracle.
+* Learn to grant select, insert, update, and delete privileges on specific tables.
+* Compare schema privileges with select grants and their limitations.
+* Observe the impact of schema privileges on user table access.
+* Compare user access capabilities with and without schema privileges.
+* Verify user access by logging in as different users and querying tables.
+* Demonstrate user access restrictions to a newly created table based on schema privileges.
+* Explore the benefits of lock-free reservations for performance and user experience.
+* Differentiate regular tables from lock-free reservation tables.
+* Set the stage for future exploration of the Lock-Free Reservation feature.
+
+## Task 1: Grant Priveledges to Users
 
 Task 1 involves granting privileges to users for accessing tables within a schema. We will grant select, insert, update, and delete privileges on the inventory_no_reservations table to User 1 (u1) and schema privileges for select, insert, update, and delete operations to User 2 (u2) on Schema 1.
 
@@ -26,7 +47,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON SCHEMA s1 TO u2;
 </copy>
 ````
 
-## Task 2: Login to Users and Test the new feature Schema Priveledges versus the Select Grants Feature
+## Task 2: Test the new feature of Schema Privileges versus Select Grants by logging into Users.
 
 Task 2 focuses on testing the new schema privilege feature and comparing it with select grants. User 1, with limited access to Table 1 within the schema, will not have schema privileges enabled. User 2, on the other hand, will have schema-level access. During the lab, we will log in as each user and observe their access to different tables within the schema.
 
@@ -178,3 +199,5 @@ select * from s1.inventory_third_table;
 This is awesome! We can tell that u2 is entitled to access all tables within the schema.
 
 The lab will set the stage for the next session, where we will explore the Lock-Free Reservation feature. We will update the inventory_reservations table and examine the difference in behavior between regular tables and lock-free reservation tables. This feature addresses the issue of session hangs caused by conventional tables, where multiple commits can lead to delays. Lock-Free Reservations offer improved performance and user experience.
+
+You many now **proceed to the next lab**
