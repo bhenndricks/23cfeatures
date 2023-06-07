@@ -89,12 +89,12 @@ By completing these labs, you will gain practical experience in setting up a dat
 
 
 
-## Learn More
+### Learn More
 * [Lock-Free Reservations Documentation](https://docs.oracle.com/en/database/oracle/oracle-database/23/adfns/using-lock-free-reservation.html#GUID-60D87F8F-AD9B-40A6-BB3C-193FFF0E60BB)
 * [Schema Priveledges](https://geodatamaster.com/2023/04/07/oracle-database-23c-schema-level-privileges/)
 
 
-## **Acknowledgements**
+### **Acknowledgements**
 * **Author(s)** - Blake Hendricks, Database Product Manager
 * **Contributor(s)** - Vasudha Krishnaswamy 
 * **Last Updated By/Date** - 5/25/2023
